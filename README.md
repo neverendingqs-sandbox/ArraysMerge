@@ -6,7 +6,7 @@ Practice
 
 Rules
 =====
-Use any language. Clone this repository, work on a branch, and create a pull request to the master branch when you're ready for a code review (all this requires a basic understanding of git).
+Use any language. Clone this repository, work on a branch, and create a pull request to the master branch when you're ready for a code review (all this requires a basic understanding of git). Make sure to include a .gitignore file for the language you're working on.
 
 Given two string enumerables (suggestion: use a list or an array), write a method that returns an enumerable (same type as the input) with the contents of both arrays, but with no duplicates.
 
