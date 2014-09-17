@@ -14,7 +14,9 @@ Example
 -------
 inputarray1 = ["hi", "dog", "bye"]
 inputarray2 = ["hi", "cat", "bye"]
-output = ["hi", "dog", "bye", cat"] (order does not matter)
+output = ["hi", "dog", "bye", cat"]
+
+The order of output does not matter.
 
 Questions
 ---------
