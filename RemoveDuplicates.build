@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+	Prerequisites:
+	- NAntContrib extention is installed.
+	- NuGet.exe is in PATH.
+-->
+<project name="RemoveDuplicates">
+	<description>A collection of sample problems and solutions.</description>
+	<property name="debug" value="true" overwrite="true" />
+	<property name="solution" value="RemoveDuplicates.sln" />
+	<property name="tests.output" value="_testoutput" />
+	
+	<target name="clean">
+        <delete dir="bin" />
+		<delete dir="_testoutput" />
+    </target>
+	
+	<target name="nuget">
+		<exec program="nuget.exe">
+			<arg value="restore" />
+			<arg value="${solution}" />
+		</exec>
+	</target>
+	
+	<target name="build" depends="nuget">
+		<msbuild project="${solution}">
+			<property name="${debug}" value="true" />
+			<arg value="/m" />
+		</msbuild>
+	</target>
+	
+	<target name="test" depends="nuget">
+		<property name="nunit.proj" value="RemoveDuplicates.nunit" />
+		<property name="nunit.loc" value="packages\NUnit.Runners.2.6.3\tools" />
+		<property name="nunit.args" value="${nunit.proj} /noshadow /xml:${tests.output}\nunit.xml" />
+		
+		<property name="opencover.loc" value="packages\OpenCover.4.5.2506\" />
+		<property name="reportgenerator.loc" value="packages\ReportGenerator.1.9.1.0\" />
+		
+		<mkdir dir="${tests.output}" />
+		
+		<exec basedir="${opencover.loc}" program="OpenCover.Console.exe" >
+			<arg value="-target:${nunit.loc}\nunit-console.exe" />
+			<arg value="-targetargs:${nunit.args}" />
+			<arg value="-output:${tests.output}\opencover.xml" />
+			<arg value="-register:user" />
+		</exec>
+		
+		<exec basedir="${reportgenerator.loc}" program="ReportGenerator.exe" >
+			<arg value="-reports:${tests.output}\opencover.xml" />
+			<arg value="-targetdir:${tests.output}" />
+		</exec>
+	</target>
+	
+	<target name="all" depends="build,test" />
+	
+</project>
