@@ -1,0 +1,8 @@
+language: csharp
+solution: RemoveDuplicates.sln
+install:
+  - nuget restore RemoveDuplicates.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -ExcludeVersion
+script:
+  - xbuild /p:Configuration=Release RemoveDuplicates.sln
+  - mono ./NUnit.Runners/tools/nunit-console.exe ./RemoveDuplicatesTests/bin/Release/RemoveDuplicatesTests.dll
